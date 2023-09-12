@@ -85,9 +85,20 @@ const submit = () => {
                     Forgot your password?
                 </Link>
 
+                <!---
+                <div class="flex justify-center mb-4">
+                    <a href="{{ route('login.google') }}" class="btn btn-primary">Login with Google</a>
+                </div>
+            -->
+
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
+            </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            <div>
+                <a href="login/google">Sign up with google</a>
             </div>
         </form>
     </GuestLayout>

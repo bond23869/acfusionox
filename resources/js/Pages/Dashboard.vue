@@ -1,22 +1,62 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-</script>
-
 <template>
-    <Head title="Dashboard" />
+     <div>
+        <header>
+            <!-- Other header content -->
+            <button @click="logout">Logout</button>
+        </header>
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
-        </template>
+        <!-- Main content and other components -->
+    </div>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Welcome to Acfusionox, {{ user.name }}!</h1>
+            <p>Manage your Google Docs and WordPress content here.</p>
+        </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">You're logged in!</div>
-                </div>
+        <div v-if="!user.google_id">
+            <GoogleDocsSignup />
+        </div>
+
+        <div v-else>
+            <div class="sync-section">
+                <button @click="syncDocs">Sync Google Docs</button>
+                <p>Last synced: {{ user.lastSynced }}</p>
+            </div>
+
+            <div class="docs-list">
+                <!-- Display a list of Google Docs here -->
+            </div>
+
+            <div class="settings-section">
+                <!-- Settings and other configurations -->
             </div>
         </div>
-    </AuthenticatedLayout>
+
+        <div class="footer">
+            <a href="/support">Contact Support</a>
+        </div>
+    </div>
 </template>
+
+<script>
+import GoogleDocsSignup from './GoogleDocsSignup.vue';
+import { Inertia } from '@inertiajs/inertia';
+export default {
+    components: {
+        GoogleDocsSignup
+    },
+    props: ['user'],
+    methods: {
+        syncDocs() {
+            // Logic to initiate syncing of Google Docs with WordPress.
+        },
+        logout() {
+            Inertia.post('/logout');
+        }
+    }
+}
+</script>
+
+<style scoped>
+/* Styling for the dashboard can be added here */
+</style>
