@@ -1,62 +1,76 @@
 <template>
-     <div>
-        <header>
-            <!-- Other header content -->
-            <button @click="logout">Logout</button>
-        </header>
 
-        <!-- Main content and other components -->
+    <HeaderComponent />
+    <div class="dashboard">
+  
+      <h1>Welcome, {{ username }}</h1>
+  
+      <!-- Google Connection Status -->
+      <div v-if="isConnectedToGoogle">
+        <p>Status: Connected to Google</p>
+        <button @click="fetchGoogleDocs">Fetch Google Docs</button>
+      </div>
+      <div v-else>
+        <p>Status: Not connected to Google</p>
+        <!-- Add connection button or link to connect to Google -->
+      </div>
+  
+      <!-- Google Docs Display -->
+      <div v-if="googleDocsFetched">
+        <h2>Your Google Docs</h2>
+        <ul>
+          <li v-for="doc in googleDocs" :key="doc.id">{{ doc.title }}</li>
+        </ul>
+      </div>
+  
+      <!-- Websites Display -->
+      <h2>Your Websites</h2>
+      <ul>
+        <li v-for="website in websites" :key="website.id">
+          <a :href="website.url" target="_blank">{{ website.name }}</a>
+        </li>
+      </ul>
+  
     </div>
-    <div class="dashboard-container">
-        <div class="header">
-            <h1>Welcome to Acfusionox, {{ user.name }}!</h1>
-            <p>Manage your Google Docs and WordPress content here.</p>
-        </div>
-
-        <div v-if="!user.google_id">
-            <GoogleDocsSignup />
-        </div>
-
-        <div v-else>
-            <div class="sync-section">
-                <button @click="syncDocs">Sync Google Docs</button>
-                <p>Last synced: {{ user.lastSynced }}</p>
-            </div>
-
-            <div class="docs-list">
-                <!-- Display a list of Google Docs here -->
-            </div>
-
-            <div class="settings-section">
-                <!-- Settings and other configurations -->
-            </div>
-        </div>
-
-        <div class="footer">
-            <a href="/support">Contact Support</a>
-        </div>
-    </div>
-</template>
-
-<script>
-import GoogleDocsSignup from './GoogleDocsSignup.vue';
-import { Inertia } from '@inertiajs/inertia';
-export default {
+  </template>
+  
+  <script>
+  export default {
     components: {
-        GoogleDocsSignup
+      HeaderComponent: () => import('../Components/Header.vue')
     },
-    props: ['user'],
+    data() {
+      return {
+        username: "User", // Placeholder. Fetch actual username from the user's session or API.
+        isConnectedToGoogle: false, // Placeholder. Determine actual connection status.
+        googleDocsFetched: false, 
+        googleDocs: [],
+        websites: [ // Placeholder data
+          { id: 1, name: 'My Portfolio', url: 'https://portfolio.com' },
+          { id: 2, name: 'My Blog', url: 'https://blog.com' }
+        ]
+      };
+    },
     methods: {
-        syncDocs() {
-            // Logic to initiate syncing of Google Docs with WordPress.
-        },
-        logout() {
-            Inertia.post('/logout');
-        }
+      fetchGoogleDocs() {
+        // Here, you'd typically make an API call to fetch the user's Google Docs
+        // Simulating with dummy data:
+        setTimeout(() => {
+          this.googleDocs = [
+            { id: 1, title: 'Document 1' },
+            { id: 2, title: 'Document 2' }
+            // Add more dummy docs as needed
+          ];
+          this.googleDocsFetched = true;
+        }, 2000);
+      }
     }
-}
-</script>
-
-<style scoped>
-/* Styling for the dashboard can be added here */
-</style>
+  }
+  </script>
+  
+  <style scoped>
+  .dashboard {
+    padding: 20px;
+  }
+  </style>
+  

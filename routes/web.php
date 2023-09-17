@@ -9,7 +9,7 @@ use App\Actions\Fortify\RedirectToGoogle;
 use App\Actions\Fortify\HandleGoogleCallback;
 use App\Http\Controllers\GoogleOAuthController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\GoogleDocsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,12 @@ Route::middleware('auth','verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // google docs
+    Route::get('/google-docs/sync-initiate', [GoogleDocsController::class, 'syncInitiate'])->name('google-docs.sync-initiate');
+    Route::get('/google-docs/callback', [GoogleDocsController::class, 'handleGoogleCallback'])->name('google-docs.callback');
+    Route::get('/google-docs/list', [GoogleDocsController::class, 'showDocsList'])->name('google-docs.list');
+
 });
 
 
