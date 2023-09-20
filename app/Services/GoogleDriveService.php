@@ -14,7 +14,7 @@ class GoogleDriveService
         $this->client = new Google_Client();
         $this->client->setClientId(env('GOOGLE_CLIENT_ID'));
         $this->client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $this->client->setRedirectUri(route('google.callback')); // Assuming you've named the callback route 'google.callback'
+        //$this->client->setRedirectUri(route('google.callback')); // Assuming you've named the callback route 'google.callback'
         $this->client->addScope(Google_Service_Drive::DRIVE_READONLY);
     }
 

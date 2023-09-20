@@ -2,17 +2,21 @@
     <header class="main-header">
         <div class="logo">Acfusionox</div>
         <nav class="main-nav">
-            <a href="/dashboard">Dashboard</a>
-            <a href="/settings">Settings</a>
+            <InertiaLink href="/dashboard">Dashboard</InertiaLink>
+            <InertiaLink href="/settings">Settings</InertiaLink>
             <!-- More links as needed -->
-            <a href="/logout">Logout</a>
+            <InertiaLink href="/logout" method="post">Logout</InertiaLink>
         </nav>
     </header>
 </template>
 
 <script>
+import { InertiaLink } from '@inertiajs/inertia-vue3';
 export default {
     name: 'Header',
+    components: {
+        InertiaLink
+    },
     // ... any logic specific to header
 }
 </script>

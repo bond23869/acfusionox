@@ -12,7 +12,6 @@ return new class extends Migration
             $table->text('google_access_token')->nullable();
             $table->text('google_refresh_token')->nullable();
             $table->dateTime('token_expiry')->nullable();
-            $table->boolean('googleConnected')->default(false);
         });
     }
 
@@ -22,7 +21,6 @@ return new class extends Migration
             $table->dropColumn('google_access_token');
             $table->dropColumn('google_refresh_token');
             $table->dropColumn('token_expiry');
-            $table->dropColumn('googleConnected');
         });
     }
 

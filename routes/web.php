@@ -43,6 +43,10 @@ Route::middleware('auth','verified')->group(function () {
     Route::get('/google-docs/callback', [GoogleDocsController::class, 'handleGoogleCallback'])->name('google-docs.callback');
     Route::get('/google-docs/list', [GoogleDocsController::class, 'showDocsList'])->name('google-docs.list');
 
+
+    Route::post('/api/fetch-google-docs', [GoogleDocsController::class, 'fetchDocs']);
+
+
 });
 
 
